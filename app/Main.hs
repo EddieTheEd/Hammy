@@ -4,10 +4,14 @@ module Main where
 
 import Data.GI.Base
 import qualified GI.Gtk as Gtk
+import Data.Text (Text)
+import qualified Data.Text as T
+import Control.Monad (unless, void)
 
 main :: IO ()
 main = do
   Gtk.init Nothing
+  
   win <- new Gtk.Window [ #title := "Hammy"
                         , #defaultWidth := 750
                         , #defaultHeight := 225
@@ -17,18 +21,35 @@ main = do
                         ]
   Gtk.setContainerBorderWidth win 10
   
-  -- Testing notebooks
   notebook <- new Gtk.Notebook []
-  label1 <- new Gtk.Label [ #label := "Page 1" ]
-  label2 <- new Gtk.Label [ #label := "Page 2" ]
-  tabLabel1 <- new Gtk.Label [ #label := "Tab 1" ]
-  tabLabel2 <- new Gtk.Label [ #label := "Tab 2" ]
-  widgetLabel1 <- Gtk.toWidget label1
-  widgetLabel2 <- Gtk.toWidget label2
-  _ <- Gtk.notebookAppendPage notebook widgetLabel1 (Just tabLabel1)
-  _ <- Gtk.notebookAppendPage notebook widgetLabel2 (Just tabLabel2)
+  todoBox <- new Gtk.Box [#orientation := Gtk.OrientationVertical, #spacing := 6]
+  entry <- new Gtk.Entry [#placeholderText := "Enter a new task and press Enter"]
+  listBox <- new Gtk.ListBox []
+  scrolledWindow <- new Gtk.ScrolledWindow []
+  #add scrolledWindow listBox
+  
+  #packStart todoBox entry False False 0
+  #packStart todoBox scrolledWindow True True 0
+  
+  let addTask = do
+        taskText <- Gtk.entryGetText entry
+        unless (T.null taskText) $ do
+          taskLabel <- new Gtk.Label [#label := taskText]
+          #add listBox taskLabel
+          #showAll listBox
+          Gtk.entrySetText entry ""
+  
+  on entry #activate addTask
+  
+  tabLabel1 <- new Gtk.Label [#label := "Todo List"]
+  
+  void $ Gtk.notebookAppendPage notebook todoBox (Just tabLabel1)
   
   #add win notebook
+  
+  void $ on win #map $ do
+    Gtk.widgetGrabFocus entry
+  
   on win #destroy Gtk.mainQuit
   #showAll win
   Gtk.main
