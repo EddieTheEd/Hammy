@@ -25,6 +25,7 @@ dependencies:
 - gi-gtk-hs
 - haskell-gi-base
 - text >= 1.2.4.1
+- gi-gdk
 
 ghc-options:
 - -Wall
