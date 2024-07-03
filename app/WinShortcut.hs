@@ -7,10 +7,16 @@ module WinShortcut
 import Data.GI.Base
 import qualified GI.Gdk as Gdk
 import qualified GI.Gtk as Gtk
-import Control.Monad (void)
+import Control.Monad (void, when)
+import Data.Text (Text)
+import qualified Data.Text as T
+import Data.IORef
 
-handleWinShortcuts :: Gtk.Window -> IO ()
-handleWinShortcuts win = do
+import InputWindow
+import CreatePages (addNotebookPage)
+
+handleWinShortcuts :: Gtk.Window -> Gtk.Notebook -> IO ()
+handleWinShortcuts win notebook = do
   void $ on win #keyPressEvent $ \eventKey -> do
     keyval <- get eventKey #keyval
     state <- get eventKey #state
@@ -18,5 +24,10 @@ handleWinShortcuts win = do
       then do
         Gtk.mainQuit
         return True
-      else
-        return False
+      else if keyval == Gdk.KEY_n && state == [Gdk.ModifierTypeControlMask]
+        then do
+          userInput <- createInputWindow
+          addNotebookPage notebook userInput
+          return True
+        else
+          return False

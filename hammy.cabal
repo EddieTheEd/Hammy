@@ -43,6 +43,8 @@ library
 executable hammy-exe
   main-is: Main.hs
   other-modules:
+      CreatePages
+      InputWindow
       Todo
       WinShortcut
       Paths_hammy
