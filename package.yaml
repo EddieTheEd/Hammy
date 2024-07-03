@@ -21,7 +21,7 @@ description:         Please see the README on GitHub at <https://github.com/Eddi
 
 dependencies:
 - base >= 4.7 && < 5
-- gi-gtk == 3.0.*
+- gi-gtk
 - gi-gtk-hs
 - haskell-gi-base
 - text >= 1.2.4.1

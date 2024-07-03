@@ -34,7 +34,7 @@ library
   build-depends:
       base >=4.7 && <5
     , gi-gdk
-    , gi-gtk ==3.0.*
+    , gi-gtk
     , gi-gtk-hs
     , haskell-gi-base
     , text >=1.2.4.1
@@ -43,6 +43,8 @@ library
 executable hammy-exe
   main-is: Main.hs
   other-modules:
+      Todo
+      WinShortcut
       Paths_hammy
   autogen-modules:
       Paths_hammy
@@ -52,7 +54,7 @@ executable hammy-exe
   build-depends:
       base >=4.7 && <5
     , gi-gdk
-    , gi-gtk ==3.0.*
+    , gi-gtk
     , gi-gtk-hs
     , hammy
     , haskell-gi-base
@@ -72,7 +74,7 @@ test-suite hammy-test
   build-depends:
       base >=4.7 && <5
     , gi-gdk
-    , gi-gtk ==3.0.*
+    , gi-gtk
     , gi-gtk-hs
     , hammy
     , haskell-gi-base
