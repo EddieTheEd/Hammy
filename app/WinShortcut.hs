@@ -27,7 +27,10 @@ handleWinShortcuts win notebook = do
       else if keyval == Gdk.KEY_n && state == [Gdk.ModifierTypeControlMask]
         then do
           userInput <- createInputWindow
-          addNotebookPage notebook userInput
+          (todoBox, entry, listBox) <- addNotebookPage notebook userInput
+          pageNum <- Gtk.notebookGetNPages notebook
+          Gtk.notebookSetCurrentPage notebook (pageNum - 1)
+          Gtk.widgetShowAll notebook
           return True
         else
           return False

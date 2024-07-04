@@ -17,9 +17,11 @@ addNotebookPage notebook userInput = do
   (todoBox, entry, listBox) <- createTodoUI
   tabLabel1 <- new Gtk.Label [#label := T.pack userInput]
   
-  Gtk.notebookAppendPage notebook todoBox (Just tabLabel1)
+  pageNum <- Gtk.notebookAppendPage notebook todoBox (Just tabLabel1)
+  Gtk.notebookSetCurrentPage notebook pageNum
   
-
+  Gtk.widgetShowAll todoBox
+  
   return (todoBox, entry, listBox)
 
 addPlainPage :: Gtk.Notebook -> Text -> Text -> IO ()
