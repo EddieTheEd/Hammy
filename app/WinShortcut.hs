@@ -31,6 +31,7 @@ handleWinShortcuts win notebook = do
           pageNum <- Gtk.notebookGetNPages notebook
           Gtk.notebookSetCurrentPage notebook (pageNum - 1)
           Gtk.widgetShowAll notebook
+          -- TODO: handle blank input
           return True
         else
           return False

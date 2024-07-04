@@ -33,6 +33,8 @@ library
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , directory
+    , filepath
     , gi-gdk
     , gi-gtk
     , gi-gtk-hs
@@ -44,6 +46,7 @@ executable hammy-exe
   main-is: Main.hs
   other-modules:
       CreatePages
+      Icon
       InputWindow
       Todo
       WinShortcut
@@ -55,6 +58,8 @@ executable hammy-exe
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , directory
+    , filepath
     , gi-gdk
     , gi-gtk
     , gi-gtk-hs
@@ -75,6 +80,8 @@ test-suite hammy-test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , directory
+    , filepath
     , gi-gdk
     , gi-gtk
     , gi-gtk-hs

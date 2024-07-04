@@ -1,24 +1,20 @@
 {-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Main where
+module Main (main) where
 
 import Data.GI.Base
 import qualified GI.Gtk as Gtk
 import Control.Monad (void)
-import Data.Text (Text)
-import qualified Data.Text as T
-import Data.IORef
 
-import InputWindow
 import WinShortcut
-import CreatePages(addNotebookPage, addPlainPage)
+import CreatePages (addPlainPage)
+import Icon (addIcon)
 
 main :: IO ()
 main = do
- -- Initialising main window
-  Gtk.init Nothing
-
+  -- Initialising main window
+  void $ Gtk.init Nothing
   win <- new Gtk.Window [ #title := "Hammy"
                         , #defaultWidth := 750
                         , #defaultHeight := 225
@@ -35,8 +31,10 @@ main = do
   addPlainPage notebook "Welcome to Hammy :)" "Welcome!"
 
   handleWinShortcuts win notebook
+
+  addIcon win
   
-  on win #destroy Gtk.mainQuit
+  _ <- on win #destroy Gtk.mainQuit
   #showAll win
 
   Gtk.main

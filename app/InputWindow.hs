@@ -9,6 +9,8 @@ import Control.Monad (void)
 import qualified Data.Text as T
 import Data.IORef
 
+import Icon (addIcon)
+
 createInputWindow :: IO String
 createInputWindow = do
   win <- new Gtk.Window [ #title := "Input Window"
@@ -39,6 +41,8 @@ createInputWindow = do
   void $ on button #clicked submitInput
 
   void $ on entry #activate submitInput  -- Handle 'Enter' key press
+
+  addIcon win
 
   #showAll win
   Gtk.main
