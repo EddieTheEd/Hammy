@@ -10,6 +10,7 @@ import Control.Monad (void)
 import WinShortcut
 import CreatePages (addPlainPage)
 import Icon (addIcon)
+import Config (configSearch)
 
 main :: IO ()
 main = do
@@ -33,6 +34,9 @@ main = do
   handleWinShortcuts win notebook
 
   addIcon win
+
+  config <- configSearch -- find config file
+  putStrLn config
   
   _ <- on win #destroy Gtk.mainQuit
   #showAll win

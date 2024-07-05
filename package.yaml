@@ -28,6 +28,7 @@ dependencies:
 - gi-gdk
 - directory
 - filepath
+- process
 
 ghc-options:
 - -Wall
